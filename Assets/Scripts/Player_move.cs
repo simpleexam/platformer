@@ -7,11 +7,15 @@ public class Player_move : MonoBehaviour
     float input; //ввод движения
     float speed = 3f;
     Rigidbody2D rb;
+    Animator anim; //аниматор
+    bool isRunning = false;
+    [SerializeField]
+    float rad = 0.1f;
 
     bool isGrounded; //состояние нахождения на земле
     [SerializeField]
     LayerMask ground; //ссылка на слой земли
-    float jumpSpeed = 3f; //скорость прыжка
+    float jumpSpeed = 5f; //скорость прыжка
     [SerializeField]
     Transform feets;
 
@@ -20,6 +24,9 @@ public class Player_move : MonoBehaviour
     {
         //получение ссылки на физический компонент объекта
         rb = GetComponent<Rigidbody2D>();
+        //получение ссылки на аниматор объекта
+        anim = GetComponent<Animator>();
+        
     }
 
     private void Update()
@@ -28,12 +35,20 @@ public class Player_move : MonoBehaviour
         rb.velocity = new Vector2(input*speed, rb.velocity.y); //перемещение самого объекта
 
         //проверка что персонаж стоит на земле
-        isGrounded = Physics2D.OverlapCircle(feets.position, 0.1f, ground);
+        isGrounded = Physics2D.OverlapCircle(feets.position, rad, ground);
 
         //если игрок стоит на земле и нажал пробел
         if(isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * jumpSpeed; //прыжок
+            anim.SetTrigger("jump");
         }
+
+        if (isGrounded) anim.SetBool("isGrounded", true);
+        else anim.SetBool("isGrounded", false);
+
+        if (input != 0) anim.SetBool("isRunning", true); //если есть ввод в переменной input(пользователь
+                                                         //нажимает <- ->) то вкл анимация бега
+        else anim.SetBool("isRunning", false); //если ноль в input - стоит
     }
 }
