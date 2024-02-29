@@ -19,6 +19,8 @@ public class Player_move : MonoBehaviour
     [SerializeField]
     Transform feets;
 
+    bool rightOrientation = true;
+
 
     private void Start()
     {
@@ -50,5 +52,23 @@ public class Player_move : MonoBehaviour
         if (input != 0) anim.SetBool("isRunning", true); //если есть ввод в переменной input(пользователь
                                                          //нажимает <- ->) то вкл анимация бега
         else anim.SetBool("isRunning", false); //если ноль в input - стоит
+
+        if(rightOrientation && input<0)
+        {
+            Flip();
+        }
+        else if (!rightOrientation && input>0)
+        {
+            Flip();
+        }
+    }
+
+    public void Flip()
+    {
+        rightOrientation = !rightOrientation;
+       
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 }
