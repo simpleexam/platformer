@@ -8,18 +8,18 @@ public class Player_move : MonoBehaviour
     float speed = 3f;
     Rigidbody2D rb;
     Animator anim; //аниматор
-    bool isRunning = false;
+    //bool isRunning = false;
     [SerializeField]
     float rad = 0.1f;
 
     bool isGrounded; //состояние нахождения на земле
     [SerializeField]
     LayerMask ground; //ссылка на слой земли
-    float jumpSpeed = 5f; //скорость прыжка
+    float jumpSpeed = 3.5f; //скорость прыжка
     [SerializeField]
     Transform feets;
 
-    bool rightOrientation = true;
+    internal bool rightOrientation = true;
 
 
     private void Start()

@@ -18,9 +18,9 @@ public class PlantEnemy : MonoBehaviour
     
     void Update()
     {
-        dimention = this.transform.position.x - playerPosition.position.x;
+        //dimention = this.transform.position.x - playerPosition.position.x;
 
-        if (dimention < 0.3)
-            anim.SetTrigger("attack");
+        //if (dimention < 0.3)
+        //    anim.SetTrigger("attack");
     }
 }
